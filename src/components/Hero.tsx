@@ -1,8 +1,8 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Phone, Sparkles } from "lucide-react";
 import { useRef } from "react";
-import heroArt from "@/assets/klic-hero.png";
 import { Counter, Magnetic, WordReveal, easeSoft } from "./motion-primitives";
+import { HolographicGlobe } from "./HolographicGlobe";
 
 const STATS = [
   { value: 269, suffix: "+", label: "Courses" },
@@ -35,7 +35,7 @@ export function Hero() {
             className="glass inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs text-muted-foreground"
           >
             <Sparkles className="h-3.5 w-3.5 text-secondary" />
-            Modern Computer Education · Bhigwan Chowk, Baramati
+            Modern Computer Education · Canal Road, Besides Vision Computer, Baramati
 
           </motion.div>
 
@@ -120,19 +120,7 @@ export function Hero() {
           transition={{ duration: 1.2, ease: easeSoft }}
           className="relative"
         >
-          <div
-            className="absolute inset-8 rounded-full opacity-50 blur-3xl"
-            style={{ background: "var(--gradient-brand)" }}
-          />
-          <motion.img
-            src={heroArt}
-            alt="Illustration of KLiC learners studying AI, programming, design, finance, networking and analytics"
-            width={1280}
-            height={1024}
-            className="relative w-full drop-shadow-2xl"
-            animate={{ y: [0, -16, 0] }}
-            transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-          />
+          <HolographicGlobe />
         </motion.div>
       </div>
     </section>

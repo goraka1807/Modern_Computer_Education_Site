@@ -219,7 +219,7 @@ export const FAQS = [
   },
   {
     q: "How do I contact Modern Computer Education?",
-    a: "Call us on 9823147011 or 9823815231, or visit our centre opposite the Municipal Corporation, Sharda Prangan, Bhigwan Chowk, Baramati.",
+    a: "Call us on 9823147011 or 9823815231, or visit our centre esides Vision Laptop Store Canal Rd, Shivdatta Apartment, Amrai, Baramati, Maharashtra 413102",
   },
 ];
 
@@ -227,7 +227,7 @@ export const CONTACT = {
   name: "Modern Computer Education",
   tagline: "Authorised KLiC Learning Centre, Baramati",
   address:
-    "Opposite Municipal Corporation, Sharda Prangan, Bhigwan Chowk, Baramati, Maharashtra 413102",
+    "esides Vision Laptop Store Canal Rd, Shivdatta Apartment, Amrai, Baramati, Maharashtra 413102",
   phones: ["9823147011", "9823815231"],
 };
 

@@ -5,15 +5,13 @@ import { LogoReveal } from "./LogoReveal";
 import { YEARS, buildIntroTimeline, samplePolyline } from "./IntroTimeline";
 
 const POINT_COUNT = 66;
-const INTRO_LOGO_ASPECT_RATIO = 713 / 561;
 
 interface Props {
   onReveal: () => void;
   onFinish: () => void;
-  replayKey?: number;
 }
 
-export function Intro({ onReveal, onFinish, replayKey = 0 }: Props) {
+export function Intro({ onReveal, onFinish }: Props) {
   const rootRef = useRef<HTMLDivElement>(null);
   const yearEls = useRef<HTMLSpanElement[]>([]);
   const logoWrapRef = useRef<HTMLDivElement>(null);
@@ -39,24 +37,12 @@ export function Intro({ onReveal, onFinish, replayKey = 0 }: Props) {
   useLayoutEffect(() => {
     const vw = window.innerWidth;
     const vh = window.innerHeight;
-    const maxWidth = Math.min(vw * 0.56, 420);
-    const maxHeight = Math.min(vh * 0.42, 320);
-    const logoHeight = Math.max(140, Math.min(maxHeight, 320));
-    const logoWidth = Math.min(logoHeight * INTRO_LOGO_ASPECT_RATIO, maxWidth);
-    const safeLogoHeight = Math.max(140, Math.min(logoHeight, logoWidth / INTRO_LOGO_ASPECT_RATIO));
-
-    setLogoSize(safeLogoHeight);
+    setLogoSize(Math.max(140, Math.min(vw * 0.34, vh * 0.42, 320)));
     document.documentElement.style.overflow = "hidden";
     return () => {
       document.documentElement.style.overflow = "";
     };
   }, []);
-
-  useEffect(() => {
-    startedRef.current = false;
-    tlRef.current?.kill();
-    tlRef.current = null;
-  }, [replayKey]);
 
   useEffect(() => {
     if (!logoSize || !rootRef.current || !logoWrapRef.current) return;
@@ -65,10 +51,9 @@ export function Intro({ onReveal, onFinish, replayKey = 0 }: Props) {
     {
       const vw = window.innerWidth;
       const vh = window.innerHeight;
-      const logoHeight = logoSize;
-      const logoWidth = logoHeight * INTRO_LOGO_ASPECT_RATIO;
-      const boxX = vw / 2 - logoWidth / 2;
-      const boxY = vh / 2 - logoHeight / 2;
+      const S = logoSize;
+      const boxX = vw / 2 - S / 2;
+      const boxY = vh / 2 - S / 2;
 
       const wrap = logoWrapRef.current!;
       wrap.style.left = `${boxX}px`;
@@ -82,8 +67,8 @@ export function Intro({ onReveal, onFinish, replayKey = 0 }: Props) {
         const jitterX = ((i * 37) % 11) - 5;
         const jitterY = ((i * 53) % 11) - 5;
         return {
-          x: boxX + p.x * logoWidth - el.offsetWidth / 2 + jitterX,
-          y: boxY + p.y * logoHeight - el.offsetHeight / 2 + jitterY,
+          x: boxX + p.x * S - el.offsetWidth / 2 + jitterX,
+          y: boxY + p.y * S - el.offsetHeight / 2 + jitterY,
           scale: 0.72 + ((i * 13) % 5) * 0.06,
         };
       });
@@ -129,8 +114,8 @@ export function Intro({ onReveal, onFinish, replayKey = 0 }: Props) {
         spotlight: spotRef.current!,
         finalTransform: {
           x: navX - boxX,
-          y: navY - (boxY + logoHeight / 2),
-          scale: navSize / logoHeight,
+          y: navY - (boxY + S / 2),
+          scale: navSize / S,
         },
         onReveal,
         onComplete: onFinish,
@@ -141,7 +126,7 @@ export function Intro({ onReveal, onFinish, replayKey = 0 }: Props) {
     return () => {
       if (!document.body.contains(rootRef.current)) tlRef.current?.kill();
     };
-  }, [logoSize, onReveal, onFinish, replayKey]);
+  }, [logoSize, onReveal, onFinish]);
 
   return (
     <div

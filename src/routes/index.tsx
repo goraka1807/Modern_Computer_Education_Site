@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { createFileRoute, useLocation } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { Intro } from "@/components/intro/Intro";
 import { AuroraBackground } from "@/components/AuroraBackground";
 import { Navbar } from "@/components/Navbar";
@@ -25,12 +25,12 @@ export const Route = createFileRoute("/")({
     meta: [
       {
         title:
-          "Modern Computer Education, Baramati | KLiC Courses & Computer Training",
+          "Modern Computer Education",
       },
       {
         name: "description",
         content:
-          "Modern Computer Education, Bhigwan Chowk, Baramati — KLiC certificate courses across 11 career tracks with practical training. Call 9823147011 or 9823815231.",
+          "Modern Computer Education, Canal Rd, Baramati — KLiC certificate courses across 11 career tracks with practical training. Call 9823147011 or 9823815231.",
       },
       {
         property: "og:title",
@@ -39,7 +39,7 @@ export const Route = createFileRoute("/")({
       {
         property: "og:description",
         content:
-          "KLiC certificate courses and computer training at Sharda Prangan, Bhigwan Chowk, Baramati. Call 9823147011 / 9823815231.",
+          "KLiC certificate courses and computer training at Canal Rd, Besides Vision Computers, Baramati. Call 9823147011 / 9823815231.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -51,23 +51,20 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   useSmoothScroll();
-  const location = useLocation();
-  const [showIntro, setShowIntro] = useState(true);
-  const [replayKey, setReplayKey] = useState(0);
-  const [revealed, setRevealed] = useState(false);
+  const [showIntro, setShowIntro] = useState(false);
+  const [revealed, setRevealed] = useState(true);
 
   useEffect(() => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) return;
     setRevealed(false);
     setShowIntro(true);
-    setReplayKey((value) => value + 1);
-  }, [location.pathname]);
+  }, []);
 
   return (
     <>
       {showIntro && (
         <Intro
-          key={replayKey}
-          replayKey={replayKey}
           onReveal={() => setRevealed(true)}
           onFinish={() => setShowIntro(false)}
         />

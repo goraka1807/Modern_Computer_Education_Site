@@ -1,7 +1,5 @@
 import { forwardRef } from "react";
 
-const INTRO_LOGO_ASPECT_RATIO = 713 / 561;
-
 interface Props {
   size: number;
   registerMark: (el: HTMLImageElement | null) => void;
@@ -20,15 +18,12 @@ export const LogoReveal = forwardRef<HTMLDivElement, Props>(function LogoReveal(
   { size, registerMark, registerNavWhite, registerNavColored },
   ref,
 ) {
-  const frameWidth = size * INTRO_LOGO_ASPECT_RATIO;
-  const frameHeight = size;
-
   return (
     <div
       ref={ref}
       aria-hidden
       className="absolute top-0 left-0 will-change-transform"
-      style={{ width: frameWidth, height: frameHeight, transformOrigin: "left center" }}
+      style={{ width: size, height: size, transformOrigin: "left center" }}
     >
       <img
         ref={registerMark}
@@ -43,9 +38,9 @@ export const LogoReveal = forwardRef<HTMLDivElement, Props>(function LogoReveal(
         alt=""
         className="absolute max-w-none object-contain"
         style={{
-          left: frameWidth * 0.084,
-          top: frameHeight * 0.07,
-          height: frameHeight * 1.08,
+          left: size * 0.084,
+          top: size * 0.07,
+          height: size * 1.08,
           opacity: 0,
         }}
         draggable={false}

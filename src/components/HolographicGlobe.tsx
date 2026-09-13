@@ -105,7 +105,7 @@ export function HolographicGlobe() {
       const velocity = velocityRef.current;
 
       if (!draggingRef.current) {
-        yawRef.current += (0.0008 + velocity.yaw) * delta;
+        yawRef.current += (0.0024 + velocity.yaw) * delta;
         pitchRef.current += velocity.pitch * delta;
         velocity.yaw *= Math.pow(0.91, delta);
         velocity.pitch *= Math.pow(0.91, delta);
@@ -115,7 +115,7 @@ export function HolographicGlobe() {
       context.clearRect(0, 0, width, height);
       const centerX = width * 0.5;
       const centerY = height * 0.5;
-      const radius = Math.min(width, height) * 0.355;
+      const radius = Math.min(width, height) * 0.45;
       const pulse = 1 + Math.sin(now * 0.0012) * 0.018;
       const glowRadius = radius * (1.32 + Math.sin(now * 0.001) * 0.04);
 
@@ -152,7 +152,7 @@ export function HolographicGlobe() {
       context.fill();
 
       const logoText = "MCE";
-      const logoSize = Math.max(28, radius * 0.56);
+      const logoSize = Math.max(28, radius * 0.70);
       const logoOffsets = [-0.52, 0, 0.52];
       for (let index = 0; index < logoText.length; index += 1) {
         const surfaceX = logoOffsets[index];
@@ -171,7 +171,7 @@ export function HolographicGlobe() {
         context.globalCompositeOperation = "lighter";
         context.globalAlpha = (0.6 + Math.sin(now * 0.0015) * 0.06) * logoPoint.scale;
         context.shadowColor = "rgba(113, 235, 255, 1)";
-        context.shadowBlur = 20;
+        context.shadowBlur = 30;
         context.fillStyle = "rgba(220, 254, 255, 0.88)";
         context.font = `600 ${logoSize * logoPoint.scale}px Space Grotesk, sans-serif`;
         context.textAlign = "center";
@@ -310,8 +310,7 @@ export function HolographicGlobe() {
   };
 
   return (
-    <div className="relative mx-auto flex aspect-square w-full max-w-[38rem] select-none items-center justify-center">
-      <div className="pointer-events-none absolute inset-[12%] rounded-full bg-[radial-gradient(circle,rgba(83,210,255,0.16),rgba(79,56,205,0.1)_46%,transparent_72%)] blur-2xl" />
+    <div className="relative mx-auto flex aspect-square w-full max-w-[38rem] -translate-y-32 select-none items-center justify-center">      <div className="pointer-events-none absolute inset-[12%] rounded-full bg-[radial-gradient(circle,rgba(83,210,255,0.16),rgba(79,56,205,0.1)_46%,transparent_72%)] blur-2xl" />
       <button
         type="button"
         aria-label="Tilt globe upward"
